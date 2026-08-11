@@ -368,6 +368,36 @@ textarea{resize:vertical; min-height:60px;}
   font-family:'JetBrains Mono',monospace;
 }
 .toast.show{opacity:1;}
+
+/* Questionnaire conformité intégré */
+.compliance-btn{width:100%;margin-top:12px;padding:13px;border-radius:8px;border:1.5px solid var(--indigo);background:#F1F3FF;color:var(--indigo);font-weight:700;cursor:pointer}
+.compliance-card{background:var(--surface);border:1.5px solid var(--line);border-left:5px solid var(--indigo);border-radius:10px;padding:13px 14px;margin:14px 0}
+.compliance-card.danger{border-left-color:var(--rose)} .compliance-card.warn{border-left-color:var(--orange)} .compliance-card.ok{border-left-color:var(--teal)}
+.comp-progress{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--muted);margin:0 0 12px}
+.comp-q{font-size:18px;font-weight:700;line-height:1.25;margin-bottom:8px}
+.comp-help{font-size:13px;color:var(--muted);line-height:1.45;margin-bottom:14px}
+.comp-options{display:flex;flex-direction:column;gap:8px}
+.comp-opt{width:100%;text-align:left;padding:11px 12px;border:1.5px solid var(--line);border-radius:8px;background:var(--surface);cursor:pointer;font:inherit;color:var(--ink)}
+.comp-opt.selected{border-color:var(--teal);background:#EAF4F2;box-shadow:inset 4px 0 0 var(--teal)}
+.comp-opt strong{display:block;font-size:14px}.comp-opt small{display:block;color:var(--muted);font-size:12px;margin-top:2px}
+.comp-nav{display:flex;gap:8px;margin-top:16px}.comp-nav button{flex:1}
+.comp-result h3{margin:0 0 6px;font-size:17px}.comp-result p{font-size:13px;line-height:1.45;color:var(--muted);margin:6px 0}
+.comp-answer-list{font-size:12px;color:var(--muted);margin-top:12px;max-height:180px;overflow:auto;border-top:1px solid var(--line);padding-top:8px}
+
+
+.price-panel{background:#F4F8F7;border:1.5px solid var(--teal);border-radius:10px;padding:14px;margin-top:16px}
+.price-panel h3{font-family:'JetBrains Mono',monospace;font-size:14px;margin:0 0 10px;color:var(--teal)}
+.price-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px 10px}
+.price-grid .full{grid-column:1/-1}
+.calc-result{margin-top:12px;background:var(--surface);border:1.5px solid var(--line);border-radius:9px;padding:12px}
+.calc-row{display:flex;justify-content:space-between;gap:12px;padding:6px 0;border-top:1px solid var(--line);font-size:13px}
+.calc-row:first-child{border-top:none}.calc-row strong{font-family:'JetBrains Mono',monospace}
+.price-cards{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.price-card{background:var(--surface);border:1.5px solid var(--line);border-radius:9px;padding:10px}
+.price-card .k{font-size:11px;color:var(--muted);text-transform:uppercase}.price-card .v{font-size:18px;font-weight:700;margin-top:3px}
+.settings-note{font-size:12px;color:var(--muted);line-height:1.45;margin:8px 0 0}
+@media(max-width:420px){.price-grid,.price-cards{grid-template-columns:1fr}}
+
 </style>
 
 <link rel="manifest" href="./manifest.webmanifest">
@@ -389,7 +419,8 @@ textarea{resize:vertical; min-height:60px;}
   </div>
   <div class="search-bar">
     <input type="text" id="searchInput" placeholder="Rechercher (nom, créateur, référence)…">
-    <button class="btn btn-secondary" id="recapBtn" style="flex:0 0 auto; padding:10px 14px; font-size:13px;">📊 Récap</button>
+    <button class="btn btn-secondary" id="recapBtn" style="flex:0 0 auto; padding:10px 12px; font-size:13px;">📊 Récap</button>
+    <button class="btn btn-secondary" id="settingsBtn" style="flex:0 0 auto; padding:10px 12px; font-size:13px;">⚙️ Prix</button>
   </div>
   <div style="display:flex; gap:8px; margin-top:8px;">
     <button class="btn btn-secondary" id="exportBtn" style="padding:9px; font-size:12.5px;">⬇ Exporter une sauvegarde</button>
@@ -440,10 +471,20 @@ textarea{resize:vertical; min-height:60px;}
     <input type="text" id="f_filament4" placeholder="Filament 4 (optionnel)" style="margin-top:6px;">
 
     <label>Temps d'impression</label>
-    <input type="text" id="f_temps" placeholder="ex: 3h45">
+    <input type="text" id="f_temps" placeholder="ex: 3h10">
 
-    <label>Coût d'impression (€)</label>
-    <input type="number" step="0.01" id="f_cout" placeholder="ex: 1.85">
+    <div class="price-panel">
+      <h3>💰 Calculateur de prix</h3>
+      <div class="price-grid">
+        <div><label style="margin-top:0">Poids filament (g)</label><input type="number" min="0" step="0.1" id="f_poids" placeholder="ex: 52"></div>
+        <div><label style="margin-top:0">Temps de travail (min)</label><input type="number" min="0" step="1" id="f_travail" placeholder="ex: 15"></div>
+        <div><label>Emballage (€)</label><input type="number" min="0" step="0.01" id="f_emballage" placeholder="paramètre par défaut"></div>
+        <div><label>Autres coûts (€)</label><input type="number" min="0" step="0.01" id="f_autres" placeholder="0,00"></div>
+      </div>
+      <div class="calc-result" id="pricePreview">Renseigne le poids, le temps d'impression et le temps de travail.</div>
+      <p class="settings-note">Les prix du filament, de l'électricité, l'amortissement, le taux horaire, les commissions et la marge se règlent avec le bouton ⚙️ Prix.</p>
+    </div>
+    <input type="hidden" id="f_cout">
 
     <div class="ce-toggle">
       <input type="checkbox" id="f_vendu">
@@ -524,6 +565,37 @@ textarea{resize:vertical; min-height:60px;}
   </div>
 </div>
 
+
+<div class="overlay" id="settingsOverlay">
+  <div class="sheet">
+    <div class="sheet-header"><h2>⚙️ Mes paramètres de prix</h2><button class="close-btn" id="closeSettings">✕</button></div>
+    <div class="price-grid">
+      <div><label style="margin-top:0">Prix moyen filament (€/kg)</label><input type="number" id="s_filament" min="0" step="0.01"></div>
+      <div><label style="margin-top:0">Électricité (€/kWh)</label><input type="number" id="s_electricite" min="0" step="0.01"></div>
+      <div><label>Consommation imprimante (W)</label><input type="number" id="s_watts" min="0" step="1"></div>
+      <div><label>Amortissement machine (€/h)</label><input type="number" id="s_amort" min="0" step="0.01"></div>
+      <div><label>Taux horaire personnel (€/h)</label><input type="number" id="s_taux" min="0" step="0.01"></div>
+      <div><label>Emballage moyen (€)</label><input type="number" id="s_emballage" min="0" step="0.01"></div>
+      <div><label>Commission boutique (%)</label><input type="number" id="s_boutique" min="0" max="99" step="0.1"></div>
+      <div><label>Frais plateforme (%)</label><input type="number" id="s_plateforme" min="0" max="99" step="0.1"></div>
+      <div><label>Frais fixes plateforme (€)</label><input type="number" id="s_plateformeFixe" min="0" step="0.01"></div>
+      <div><label>Marge souhaitée (%)</label><input type="number" id="s_marge" min="0" step="1"></div>
+    </div>
+    <p class="settings-note">La marge est calculée sur le coût réel : prix conseillé = coût réel × (1 + marge %). Les prix boutique et en ligne compensent ensuite les commissions pour conserver cette marge.</p>
+    <div class="actions"><button class="btn btn-secondary" id="resetSettings">Valeurs conseillées</button><button class="btn btn-primary" id="saveSettings">Enregistrer</button></div>
+  </div>
+</div>
+
+<div class="overlay" id="complianceOverlay">
+  <div class="sheet">
+    <div class="sheet-header">
+      <h2>🛡️ Questionnaire conformité</h2>
+      <button class="close-btn" id="closeCompliance">✕</button>
+    </div>
+    <div id="complianceContent"></div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -574,6 +646,56 @@ let storageBroken = false;
 let activeTab = "Tous";
 let editingId = null;
 let pendingPhoto = null;
+
+const DEFAULT_PRICE_SETTINGS = {
+  filamentKg:20, electriciteKwh:0.25, imprimanteWatts:120, amortissementH:0.20,
+  tauxHoraire:15, emballage:0.30, commissionBoutique:20, fraisPlateforme:10,
+  fraisPlateformeFixe:0, margeSouhaitee:50
+};
+let priceSettings = loadPriceSettings();
+function loadPriceSettings(){
+  try{return {...DEFAULT_PRICE_SETTINGS,...JSON.parse(localStorage.getItem('recreaju_price_settings')||'{}')}}catch(e){return {...DEFAULT_PRICE_SETTINGS}}
+}
+function savePriceSettings(){localStorage.setItem('recreaju_price_settings',JSON.stringify(priceSettings));}
+function n(v){const x=parseFloat(String(v??'').replace(',','.'));return Number.isFinite(x)?x:0;}
+function euro(v){return n(v).toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+' €';}
+function parsePrintHours(txt){
+  txt=String(txt||'').trim().toLowerCase().replace(',', '.');
+  let h=0,m=0;
+  const mh=txt.match(/(\d+(?:\.\d+)?)\s*h/); if(mh) h=parseFloat(mh[1]);
+  const mm=txt.match(/(?:h\s*)?(\d+)\s*(?:min|mn|m)\b/); if(mm) m=parseFloat(mm[1]);
+  if(!mh && !mm){ const colon=txt.match(/^(\d+):(\d+)$/); if(colon){h=+colon[1];m=+colon[2];} else if(/^\d+(?:\.\d+)?$/.test(txt)) h=parseFloat(txt); }
+  return h+m/60;
+}
+function computePrices(data, cfg=priceSettings){
+  const poids=n(data.poids), printH=parsePrintHours(data.temps), workH=n(data.travail)/60;
+  const filament=(poids/1000)*n(cfg.filamentKg);
+  const electricite=printH*(n(cfg.imprimanteWatts)/1000)*n(cfg.electriciteKwh);
+  const amortissement=printH*n(cfg.amortissementH);
+  const travail=workH*n(cfg.tauxHoraire);
+  const emballage=data.emballage===''||data.emballage==null?n(cfg.emballage):n(data.emballage);
+  const autres=n(data.autres);
+  const cout=filament+electricite+amortissement+travail+emballage+autres;
+  const target=cout*(1+n(cfg.margeSouhaitee)/100);
+  const bRate=Math.min(n(cfg.commissionBoutique)/100,.99), pRate=Math.min(n(cfg.fraisPlateforme)/100,.99);
+  const direct=target;
+  const boutique=target/(1-bRate);
+  const online=(target+n(cfg.fraisPlateformeFixe))/(1-pRate);
+  return {filament,electricite,amortissement,travail,emballage,autres,cout,minimum:cout,direct,boutique,online,marge:direct-cout,tauxMarge:cout?((direct-cout)/cout*100):0,printH,workH};
+}
+function currentCalcData(){return {poids:document.getElementById('f_poids')?.value||'',temps:document.getElementById('f_temps')?.value||'',travail:document.getElementById('f_travail')?.value||'',emballage:document.getElementById('f_emballage')?.value??'',autres:document.getElementById('f_autres')?.value||''};}
+function renderPricePreview(){
+  const box=document.getElementById('pricePreview'); if(!box) return;
+  const r=computePrices(currentCalcData());
+  document.getElementById('f_cout').value=r.cout.toFixed(2);
+  box.innerHTML=`<div class="calc-row"><span>🧵 Filament</span><strong>${euro(r.filament)}</strong></div><div class="calc-row"><span>⚡ Électricité</span><strong>${euro(r.electricite)}</strong></div><div class="calc-row"><span>🖨️ Usure machine</span><strong>${euro(r.amortissement)}</strong></div><div class="calc-row"><span>⏱️ Temps de travail</span><strong>${euro(r.travail)}</strong></div><div class="calc-row"><span>📦 Emballage</span><strong>${euro(r.emballage)}</strong></div>${r.autres?`<div class="calc-row"><span>➕ Autres</span><strong>${euro(r.autres)}</strong></div>`:''}<div class="calc-row"><span><b>Coût réel</b></span><strong>${euro(r.cout)}</strong></div><div class="price-cards"><div class="price-card"><div class="k">💰 Prix minimum</div><div class="v">${euro(r.minimum)}</div></div><div class="price-card"><div class="k">🏷️ Prix conseillé</div><div class="v">${euro(r.direct)}</div></div><div class="price-card"><div class="k">🏪 Prix boutique</div><div class="v">${euro(r.boutique)}</div></div><div class="price-card"><div class="k">🌐 Prix en ligne</div><div class="v">${euro(r.online)}</div></div></div><div class="calc-row"><span>Marge vente directe</span><strong>${euro(r.marge)} · ${r.tauxMarge.toFixed(0)} %</strong></div>`;
+}
+function openPriceSettings(){
+  const map={s_filament:'filamentKg',s_electricite:'electriciteKwh',s_watts:'imprimanteWatts',s_amort:'amortissementH',s_taux:'tauxHoraire',s_emballage:'emballage',s_boutique:'commissionBoutique',s_plateforme:'fraisPlateforme',s_plateformeFixe:'fraisPlateformeFixe',s_marge:'margeSouhaitee'};
+  Object.entries(map).forEach(([id,k])=>document.getElementById(id).value=priceSettings[k]);
+  document.getElementById('settingsOverlay').classList.add('open');
+}
+
 
 function toast(msg){
   const t = document.getElementById('toast');
@@ -689,7 +811,7 @@ function renderList(){
         <div class="card-nom">${escapeHtml(e.nom)}</div>
         <div class="card-meta">
           <b>${escapeHtml(e.createur||'—')}</b> · ${escapeHtml((e.filaments||[]).join(' + ')||'—')}<br>
-          ${escapeHtml(e.temps||'—')} · ${e.cout!=null && e.cout!=='' ? e.cout+' €' : '—'}
+          ${escapeHtml(e.temps||'—')} · coût ${e.coutReel!=null ? euro(e.coutReel) : (e.cout!=null && e.cout!=='' ? euro(e.cout) : '—')}${e.prixConseille!=null ? ` · <b>${euro(e.prixConseille)}</b>` : ''}
         </div>
       </div>
     </div>
@@ -732,8 +854,13 @@ function openForm(id){
       document.getElementById('f_filament2').value = fils[1] || '';
       document.getElementById('f_filament3').value = fils[2] || '';
       document.getElementById('f_filament4').value = fils[3] || '';
-      document.getElementById('f_temps').value = entry.temps;
-      document.getElementById('f_cout').value = entry.cout;
+      document.getElementById('f_temps').value = entry.temps || '';
+      document.getElementById('f_poids').value = entry.pricing?.poids ?? entry.poids ?? '';
+      document.getElementById('f_travail').value = entry.pricing?.travail ?? '';
+      document.getElementById('f_emballage').value = entry.pricing?.emballage ?? '';
+      document.getElementById('f_autres').value = entry.pricing?.autres ?? '';
+      document.getElementById('f_cout').value = entry.pricing?.result?.cout ?? entry.cout ?? '';
+      renderPricePreview();
       document.getElementById('f_notes').value = entry.notes || '';
       document.getElementById('f_vendu').checked = !!entry.vendu;
       document.getElementById('venteFields').classList.toggle('open', !!entry.vendu);
@@ -768,7 +895,12 @@ function openForm(id){
     document.getElementById('f_filament3').value = '';
     document.getElementById('f_filament4').value = '';
     document.getElementById('f_temps').value = '';
+    document.getElementById('f_poids').value = '';
+    document.getElementById('f_travail').value = '';
+    document.getElementById('f_emballage').value = '';
+    document.getElementById('f_autres').value = '';
     document.getElementById('f_cout').value = '';
+    renderPricePreview();
     document.getElementById('f_notes').value = '';
     document.getElementById('f_vendu').checked = false;
     document.getElementById('venteFields').classList.remove('open');
@@ -869,6 +1001,11 @@ document.getElementById('saveForm').addEventListener('click', async ()=>{
     filaments: filaments,
     temps: document.getElementById('f_temps').value.trim(),
     cout: document.getElementById('f_cout').value,
+    poids: n(document.getElementById('f_poids').value),
+    pricing: (()=>{
+      const data=currentCalcData(), result=computePrices(data);
+      return {poids:n(data.poids),travail:n(data.travail),emballage:data.emballage===''?'':n(data.emballage),autres:n(data.autres),settings:{...priceSettings},result};
+    })(),
     notes: document.getElementById('f_notes').value.trim(),
     photo: pendingPhoto || null,
     vendu: document.getElementById('f_vendu').checked,
@@ -897,9 +1034,10 @@ document.getElementById('saveForm').addEventListener('click', async ()=>{
     const idxEntry = {
       id, category, ref, nom,
       createur: entry.createur, filaments: entry.filaments,
-      temps: entry.temps, cout: entry.cout,
+      temps: entry.temps, cout: entry.cout, prixConseille: entry.pricing?.result?.direct ?? null, coutReel: entry.pricing?.result?.cout ?? entry.cout,
       dateAdded: entry.dateAdded, thumb: thumb || null,
       necessiteCE: entry.necessiteCE,
+      complianceRegime: entry.compliance?.regime || (index.find(e=>e.id===id)?.complianceRegime || ''),
       vendu: entry.vendu, quantite: entry.quantite
     };
     const pos = index.findIndex(e=>e.id===id);
@@ -939,10 +1077,13 @@ async function openDetail(id){
       <div class="detail-item"><div class="k">Créateur</div><div class="v">${escapeHtml(entry.createur||'—')}</div></div>
       <div class="detail-item"><div class="k">Filament(s)</div><div class="v">${escapeHtml((entry.filaments||[]).join(', ')||'—')}</div></div>
       <div class="detail-item"><div class="k">Temps</div><div class="v">${escapeHtml(entry.temps||'—')}</div></div>
-      <div class="detail-item"><div class="k">Coût</div><div class="v">${entry.cout!=null && entry.cout!=='' ? entry.cout+' €' : '—'}</div></div>
+      <div class="detail-item"><div class="k">Coût réel</div><div class="v">${entry.pricing?.result ? euro(entry.pricing.result.cout) : (entry.cout!=null && entry.cout!=='' ? euro(entry.cout) : '—')}</div></div>
       <div class="detail-item"><div class="k">Vendu</div><div class="v">${entry.vendu ? '✓ Oui — '+ (entry.quantite||0) + ' unité(s)' : 'Non'}</div></div>
     </div>
+    ${entry.pricing?.result ? `<div class="price-panel"><h3>💰 Prix de vente</h3><div class="price-cards"><div class="price-card"><div class="k">💰 Minimum</div><div class="v">${euro(entry.pricing.result.minimum)}</div></div><div class="price-card"><div class="k">🏷️ Conseillé</div><div class="v">${euro(entry.pricing.result.direct)}</div></div><div class="price-card"><div class="k">🏪 Boutique</div><div class="v">${euro(entry.pricing.result.boutique)}</div></div><div class="price-card"><div class="k">🌐 En ligne</div><div class="v">${euro(entry.pricing.result.online)}</div></div></div><div class="calc-row"><span>Marge directe</span><strong>${euro(entry.pricing.result.marge)} · ${n(entry.pricing.result.tauxMarge).toFixed(0)} %</strong></div><div class="calc-row"><span>Poids / travail</span><strong>${entry.pricing.poids||0} g · ${entry.pricing.travail||0} min</strong></div></div>` : ''}
     ${entry.notes ? `<div class="detail-item" style="margin-bottom:16px;"><div class="k">Notes</div><div class="v" style="font-weight:400;">${escapeHtml(entry.notes)}</div></div>` : ''}
+    ${entry.compliance ? `<div class="compliance-card ${entry.compliance.tone||'warn'}"><div class="k">Diagnostic conformité</div><div class="v" style="font-weight:700;margin-top:4px;">${escapeHtml(entry.compliance.regime||'Évaluation enregistrée')}</div><div style="font-size:12px;color:var(--muted);margin-top:4px;">${entry.compliance.checkedAt ? 'Évalué le '+new Date(entry.compliance.checkedAt).toLocaleDateString('fr-FR') : ''}</div></div>` : ''}
+    <button class="compliance-btn" id="complianceBtn">🛡️ ${entry.compliance ? 'Revoir le questionnaire conformité' : 'Évaluer la conformité de ce produit'}</button>
     ${entry.necessiteCE ? `
       <div class="detail-item" style="margin-bottom:16px;">
         <div class="k">Preuve filament (EN 71-3)</div>
@@ -959,6 +1100,11 @@ async function openDetail(id){
   if(entry.necessiteCE){
     document.getElementById('genPdfBtn').onclick = ()=> generateDoC(entry);
   }
+  const complianceBtn = document.getElementById('complianceBtn');
+  if(complianceBtn) complianceBtn.onclick = ()=>{
+    document.getElementById('detailOverlay').classList.remove('open');
+    openCompliance(id);
+  };
   document.getElementById('editBtn').onclick = ()=>{
     document.getElementById('detailOverlay').classList.remove('open');
     openForm(id);
@@ -1141,7 +1287,7 @@ document.getElementById('exportBtn').addEventListener('click', async ()=>{
     const full = await loadEntry(e.id);
     if(full) entries.push(full);
   }
-  const backup = { exportedAt: new Date().toISOString(), index, entries };
+  const backup = { exportedAt: new Date().toISOString(), index, entries, priceSettings };
   const blob = new Blob([JSON.stringify(backup)], {type:'application/json'});
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
@@ -1167,6 +1313,7 @@ document.getElementById('importFile').addEventListener('change', (e)=>{
     try{
       const backup = JSON.parse(ev.target.result);
       if(!backup.index || !backup.entries) throw new Error('format invalide');
+      if(backup.priceSettings){ priceSettings={...DEFAULT_PRICE_SETTINGS,...backup.priceSettings}; savePriceSettings(); }
       const merged = {};
       index.forEach(e2 => merged[e2.id] = e2);
       backup.index.forEach(e2 => merged[e2.id] = e2);
@@ -1190,6 +1337,125 @@ document.getElementById('importFile').addEventListener('change', (e)=>{
 
 // --- Installation PWA / GitHub Pages ---
 let deferredInstallPrompt = null;
+
+// ===== Questionnaire conformité inspiré du guide public Coben 3D (août 2026) =====
+const COMPLIANCE_Q = [
+  {id:'nature', q:"Quelle est la nature réelle du produit ?", help:"Le classement dépend de l'usage prévisible du produit, pas uniquement du nom utilisé pour le vendre.", opts:[
+    ['jouet','Objet de jeu','figurine articulée, fidget, toupie, véhicule'],
+    ['ambigu','Objet ambigu','porte-clés articulé, tour à dés, figurine de collection'],
+    ['deco','Décoration ou utilitaire','support, pot, organiseur, pièce technique'],
+    ['peau','Contact avec la peau','bracelet, bijou, serre-tête, accessoire porté'],
+    ['bouche','Contact avec la bouche, hors aliment','sifflet, embout, flûte, bec'],
+    ['alim','Contact alimentaire','emporte-pièce, moule, gobelet, couvert']
+  ]},
+  {id:'age', q:"Qui utilise réellement ce produit ?", help:"Une simple mention “14 ans et plus” ne suffit pas si le produit est objectivement attractif et utilisé par des enfants.", opts:[
+    ['enfants','Enfants de moins de 14 ans','cible assumée'],['mixte','Tout public','adultes et enfants'],['adultes','Adultes ou adolescents','collection, jeu ou usage technique']
+  ]},
+  {id:'pieces', q:"Y a-t-il de petites pièces ou des éléments fragiles ?", help:"Les pièces mobiles, détachables ou susceptibles de casser augmentent le risque mécanique.", opts:[
+    ['oui','Oui','articulations, emboîtements, éléments détachables'],['fragile','Pas détachable, mais fragile','cornes, ailes, antennes, parties fines'],['non','Non','pièce massive et monobloc']
+  ]},
+  {id:'licence', q:"D'où vient le modèle 3D ?", help:"La licence commerciale et la conformité produit sont deux sujets distincts. Il faut pouvoir prouver le droit de vendre le modèle.", opts:[
+    ['perso','Modèle créé par nous-mêmes','création originale'],['licence','Modèle tiers avec licence commerciale','preuve écrite disponible'],['gratuit','Modèle tiers téléchargé gratuitement','pas de licence commerciale explicite'],['inconnu','Licence non vérifiée','conditions inconnues']
+  ]},
+  {id:'filament', q:"Quels justificatifs avez-vous pour le filament ?", help:"Pour un jouet, la documentation chimique doit notamment être suivie par matière et couleur.", opts:[
+    ['complet','Rapports d’essais par couleur','avec identification du laboratoire'],['partiel','FDS + déclaration REACH','sans rapport d’essai par couleur'],['rien','Aucun document',''],['inconnu','Jamais demandé','']
+  ]},
+  {id:'post', q:"Ajoutez-vous un produit après impression ?", help:"Peinture, colle, vernis ou résine deviennent partie intégrante du produit fini.", opts:[
+    ['oui','Oui','peinture, colle, vernis, résine, lissage chimique'],['ponc','Ponçage / ébavurage seulement','aucun produit ajouté'],['non','Non','pièce brute après impression']
+  ]},
+  {id:'elec', multi:true, q:"Le produit contient-il électronique ou aimants ?", help:"Ces composants peuvent ajouter des exigences spécifiques, y compris hors réglementation jouet.", opts:[
+    ['pile','Pile ou batterie','LED, moteur, carte'],['secteur','Alimentation USB ou secteur',''],['aimant','Aimants','fermoir ou assemblage magnétique'],['non','Rien de tout cela','plastique uniquement',true]
+  ]},
+  {id:'canal', multi:true, q:"Où le produit est-il vendu ?", help:"En vente à distance, certaines informations et avertissements doivent être visibles avant l’achat.", opts:[
+    ['stand','Stands, salons ou marchés','vente en main propre'],['boutique','Boutique en ligne personnelle','site propre'],['market','Marketplace','Etsy, Amazon, eBay, Vinted']
+  ]},
+  {id:'emballage', multi:true, q:"Comment le produit est-il remis au client ?", help:"Boîte, pochette, carton d’expédition, calage et documents papier peuvent relever des obligations liées aux emballages.", opts:[
+    ['vente','Emballage de vente','boîte, sachet, pochette'],['transport','Emballage d’expédition','carton, papier bulle, calage'],['papier','Notice ou carte papier','notice, flyer, carte'],['fabrique','Emballage fabriqué / personnalisé','boîte faite main ou à la marque'],['aucun','Aucun emballage','remis tel quel en main propre',true]
+  ]},
+  {id:'pays', q:"Dans quels pays vendez-vous ?", help:"La vente transfrontalière peut ajouter des obligations de producteur et de représentation locale.", opts:[
+    ['fr','France uniquement',''],['ue','Plusieurs pays de l’Union européenne',''],['monde','Aussi hors Union européenne','Royaume-Uni, Suisse, États-Unis…']
+  ]},
+  {id:'statut', q:"Sous quel statut vendez-vous ?", help:"Les règles de sécurité produit s’appliquent indépendamment du statut choisi.", opts:[
+    ['aucun','Aucun statut','ventes occasionnelles'],['micro','Micro-entreprise',''],['societe','Société','SASU, EURL, SARL…'],['asso','Association','']
+  ]}
+];
+let complianceState = {id:null, step:0, answers:{}};
+
+function complianceVerdict(A){
+  const n=A.nature, age=A.age, kids=(age==='enfants'||age==='mixte');
+  if(n==='alim') return {key:'alim',tone:'danger',regime:'Contact alimentaire',sub:'Règlement (CE) 1935/2004',msg:"Le produit relève du cadre des matériaux destinés au contact des denrées. La conformité du produit fini et de ses matériaux/revêtements doit être documentée."};
+  if(n==='bouche') return {key:'bouche',tone:'warn',regime:'Contact buccal hors aliment',sub:'REACH annexe XVII',msg:"Le contact répété avec la cavité buccale demande une attention chimique et hygiénique spécifique. Si l’objet est aussi un jouet, le régime jouet peut s’ajouter."};
+  if(n==='peau') return {key:'peau',tone:'warn',regime:'Article en contact avec la peau',sub:'REACH annexe XVII',msg:"Pas de marquage CE jouet par principe, mais des restrictions chimiques peuvent s’appliquer aux matériaux et aux pièces métalliques en contact avec la peau."};
+  if(n==='jouet' && age==='adultes') return {key:'jeu-adulte',tone:'warn',regime:'Objet de jeu à cible adulte — à confirmer',sub:'Qualification à sécuriser',msg:"Le positionnement adulte doit être cohérent avec la conception, la présentation, le prix, l’emballage et le canal de vente."};
+  if(n==='jouet' || (n==='ambigu' && kids)) return {key:'jouet',tone:'danger',regime:'Réglementation jouet',sub:'Directive 2009/48/CE',msg:"Le produit est susceptible de relever du régime jouet : analyse de risques, dossier technique, normes applicables, déclaration de conformité et marquage CE sont à traiter."};
+  if(n==='ambigu') return {key:'limite',tone:'warn',regime:'Zone grise — qualification à trancher',sub:'Jouet ou produit de consommation',msg:"Le produit peut basculer vers le régime jouet selon son usage prévisible et sa présentation commerciale. La qualification doit être documentée."};
+  return {key:kids?'deco-enfant':'deco',tone:'ok',regime:'Produit de consommation courante',sub:'Règlement (UE) 2023/988',msg:"Pas de marquage CE jouet sur cette seule qualification. Il reste toutefois les obligations générales de sécurité, traçabilité et information."};
+}
+
+function complianceTasks(A,v){
+  const t=[];
+  if(A.licence==='gratuit'||A.licence==='inconnu') t.push('⚠ Vérifier et archiver une licence autorisant la vente des impressions.');
+  else t.push('✓ Archiver la preuve de création ou de licence commerciale.');
+  if(A.filament==='rien'||A.filament==='inconnu') t.push('⚠ Demander FDS, déclaration REACH et justificatifs adaptés aux couleurs/matières.');
+  if(A.filament==='partiel' && v.key==='jouet') t.push('⚠ Compléter la preuve chimique adaptée au produit jouet et aux couleurs utilisées.');
+  if(A.post==='oui') t.push('⚠ Documenter aussi peinture, colle, vernis ou résine ajoutés au produit fini.');
+  if(A.pieces==='oui'||A.pieces==='fragile') t.push('⚠ Documenter les risques de détachement, casse, arêtes et petites pièces.');
+  const e=Array.isArray(A.elec)?A.elec:[];
+  if(e.includes('pile')||e.includes('secteur')) t.push('⚠ Vérifier les exigences électriques/électroniques applicables et les composants utilisés.');
+  if(e.includes('aimant')) t.push('⚠ Documenter la tenue et l’accessibilité des aimants, notamment en cas d’usage par des enfants.');
+  if(v.key==='jouet') t.push('⚠ Constituer le dossier technique, l’analyse de risques, les preuves d’essais et la déclaration UE de conformité avant marquage CE.');
+  if(v.key==='alim') t.push('⚠ Documenter la conformité au contact alimentaire du produit fini et les conditions d’usage/nettoyage.');
+  if(v.key==='peau'||v.key==='bouche') t.push('⚠ Vérifier les restrictions REACH pertinentes et conserver les preuves fournisseur/laboratoire.');
+  const can=Array.isArray(A.canal)?A.canal:[];
+  if(can.includes('boutique')||can.includes('market')) t.push('✓ Prévoir les informations de sécurité et avertissements visibles avant l’achat en ligne.');
+  if(A.pays==='ue'||A.pays==='monde') t.push('⚠ Vérifier les obligations supplémentaires pour chaque pays de mise sur le marché.');
+  t.push('✓ Assurer traçabilité, suivi des lots et procédure en cas de signalement ou rappel.');
+  return t;
+}
+
+async function openCompliance(id){
+  const entry=await loadEntry(id); if(!entry) return;
+  complianceState={id,step:0,answers:entry.compliance?.answers ? JSON.parse(JSON.stringify(entry.compliance.answers)) : {}};
+  document.getElementById('complianceOverlay').classList.add('open');
+  renderCompliance();
+}
+function renderCompliance(){
+  const box=document.getElementById('complianceContent');
+  const s=complianceState, q=COMPLIANCE_Q[s.step], A=s.answers;
+  if(s.step>=COMPLIANCE_Q.length){ renderComplianceResult(); return; }
+  const cur=A[q.id];
+  box.innerHTML=`<div class="comp-progress">Question ${s.step+1} / ${COMPLIANCE_Q.length}</div><div class="comp-q">${q.q}</div><div class="comp-help">${q.help}</div><div class="comp-options">${q.opts.map(o=>{const selected=Array.isArray(cur)?cur.includes(o[0]):cur===o[0];return `<button class="comp-opt ${selected?'selected':''}" data-v="${o[0]}"><strong>${o[1]}</strong>${o[2]?`<small>${o[2]}</small>`:''}</button>`}).join('')}</div><div class="comp-nav"><button class="btn btn-secondary" id="compBack">${s.step===0?'Fermer':'Retour'}</button><button class="btn btn-primary" id="compNext" ${(!cur||(Array.isArray(cur)&&!cur.length))?'disabled':''}>${s.step===COMPLIANCE_Q.length-1?'Voir le résultat':'Continuer'}</button></div>`;
+  box.querySelectorAll('.comp-opt').forEach(btn=>btn.onclick=()=>{
+    const v=btn.dataset.v, opt=q.opts.find(o=>o[0]===v);
+    if(q.multi){
+      let arr=Array.isArray(A[q.id])?A[q.id].slice():[];
+      if(opt[3]) arr=arr.includes(v)?[]:[v];
+      else {arr=arr.filter(x=>!q.opts.some(o=>o[0]===x&&o[3])); arr=arr.includes(v)?arr.filter(x=>x!==v):arr.concat(v);}
+      A[q.id]=arr;
+    } else A[q.id]=v;
+    renderCompliance();
+  });
+  document.getElementById('compBack').onclick=()=>{ if(s.step===0) closeComplianceFn(); else {s.step--;renderCompliance();} };
+  document.getElementById('compNext').onclick=()=>{s.step++;renderCompliance();};
+}
+function renderComplianceResult(){
+  const box=document.getElementById('complianceContent'), A=complianceState.answers, v=complianceVerdict(A), tasks=complianceTasks(A,v);
+  box.innerHTML=`<div class="comp-result"><div class="compliance-card ${v.tone}"><div class="k">Régime indicatif</div><h3>${v.regime}</h3><div style="font-size:12px;color:var(--muted);font-family:'JetBrains Mono',monospace;">${v.sub}</div><p>${v.msg}</p></div><h3>Points à traiter</h3>${tasks.map(x=>`<div class="detail-item" style="margin-bottom:8px"><div class="v" style="font-size:13px;font-weight:500">${x}</div></div>`).join('')}<div class="comp-answer-list"><strong>Source de la logique :</strong> guide public « Puis-je vendre mes impressions 3D ? » de Coben 3D, consulté en août 2026. Outil d’orientation, pas avis juridique.</div><div class="comp-nav"><button class="btn btn-secondary" id="compRestart">Revoir</button><button class="btn btn-primary" id="compSave">Enregistrer dans la fiche</button></div></div>`;
+  document.getElementById('compRestart').onclick=()=>{complianceState.step=0;renderCompliance();};
+  document.getElementById('compSave').onclick=async()=>{
+    const entry=await loadEntry(complianceState.id); if(!entry) return;
+    entry.compliance={answers:A,key:v.key,tone:v.tone,regime:v.regime,sub:v.sub,tasks,checkedAt:new Date().toISOString(),source:'Coben 3D questionnaire-ce, août 2026'};
+    // Si le questionnaire conclut clairement au régime jouet, synchroniser le marqueur de la fiche.
+    if(v.key==='jouet') entry.necessiteCE=true;
+    await saveEntry(entry);
+    const pos=index.findIndex(x=>x.id===entry.id);
+    if(pos>=0){index[pos].necessiteCE=entry.necessiteCE; index[pos].complianceRegime=v.regime; await saveIndex();}
+    closeComplianceFn(); renderTabs(); renderList(); toast('✓ Diagnostic conformité enregistré'); openDetail(entry.id);
+  };
+}
+function closeComplianceFn(){document.getElementById('complianceOverlay').classList.remove('open');}
+document.getElementById('closeCompliance').addEventListener('click',closeComplianceFn);
+
 const installBtn = document.getElementById('installBtn');
 
 window.addEventListener('beforeinstallprompt', (event) => {
@@ -1224,6 +1490,17 @@ if ('serviceWorker' in navigator) {
     });
   });
 }
+
+
+['f_poids','f_temps','f_travail','f_emballage','f_autres'].forEach(id=>document.getElementById(id)?.addEventListener('input',renderPricePreview));
+document.getElementById('settingsBtn').addEventListener('click',openPriceSettings);
+document.getElementById('closeSettings').addEventListener('click',()=>document.getElementById('settingsOverlay').classList.remove('open'));
+document.getElementById('resetSettings').addEventListener('click',()=>{priceSettings={...DEFAULT_PRICE_SETTINGS};openPriceSettings();toast('Valeurs conseillées restaurées');});
+document.getElementById('saveSettings').addEventListener('click',()=>{
+  const map={filamentKg:'s_filament',electriciteKwh:'s_electricite',imprimanteWatts:'s_watts',amortissementH:'s_amort',tauxHoraire:'s_taux',emballage:'s_emballage',commissionBoutique:'s_boutique',fraisPlateforme:'s_plateforme',fraisPlateformeFixe:'s_plateformeFixe',margeSouhaitee:'s_marge'};
+  Object.entries(map).forEach(([k,id])=>priceSettings[k]=n(document.getElementById(id).value));
+  savePriceSettings(); document.getElementById('settingsOverlay').classList.remove('open'); renderPricePreview(); toast('Paramètres de prix enregistrés');
+});
 
 loadIndex();
 </script>
