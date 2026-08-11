@@ -1,0 +1,1231 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Recreaju</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Recreaju">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#2C6E63">
+<link rel="apple-touch-icon" href="data:image/png;base64,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">
+<link rel="icon" type="image/png" sizes="32x32" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAABu0lEQVR4nGN8++4DAy0BC6aQfUMxJSYebOjFaQGFRmMFTMimC4qKQNgUMhgYGO6UWEMYjJA4QDadQrAhuxK7D96/fgMhKWSghTMLAw2CPmBqO8Q+BkgQQSygVhDBAcQO6gcRnAExlomBxoCoINpV3sTBysbAwPDv//8vP77ffP500ZF9Fx/dx280CUH0//9/iBomRkY+Ti5TJdXO8ARpQWEqB1HZwlkGhWk5C2f8+vOHi53dSlWTGF2IogISRFjzJyMjIwMDAzcfL5+w0KXHD559eKcgIibMy4s/V5McRF8/ff709p2erIKUgBADA8PtF8+ICSIspSku0BWf1hWfxsDA8PvvnzXHDu2/donKQQQHD9+8XnD8wL///6kcRGULZwW01336/k1FXDLE0ByXYooy2t0XzxYf2c/AwBBqbc/DwUmMFoQF8CDCZMBTkaCoyObzp77+/MnNzhFobIFVMVpQk5aK3r9+8+3Xz7XHDjIwMISYWX/78JEmZdHSQ/v+/fsnyM3jb2ZNUPFocU0QDI8gQmuLUREcbOglqiwij4ESRAcbeqkeRJCAYURuXVOxgQQPdkbM5jt1W9cAzrFHaw5LJ5IAAAAASUVORK5CYII=">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap');
+
+:root{
+  --bg:#EDEEF0;
+  --surface:#FFFFFF;
+  --ink:#1B2430;
+  --muted:#5B6673;
+  --line:#D5D9DC;
+  --teal:#2C6E63;
+  --orange:#C9622B;
+  --indigo:#4A5FC1;
+  --purple:#8B4B9E;
+  --rose:#B23A55;
+  --grey:#5B6673;
+}
+*{box-sizing:border-box;}
+body{
+  margin:0;
+  font-family:'Inter',sans-serif;
+  color:var(--ink);
+  background-color:var(--bg);
+  background-image:radial-gradient(circle, #C7CCD1 1px, transparent 1px);
+  background-size:22px 22px;
+  min-height:100vh;
+  padding-bottom:100px;
+}
+header{
+  padding:28px 20px 18px;
+  border-bottom:2px solid var(--ink);
+  background:var(--surface);
+  position:sticky;
+  top:0;
+  z-index:10;
+}
+.brand-row{display:flex; align-items:baseline; justify-content:space-between; gap:10px; flex-wrap:wrap;}
+h1{
+  font-family:'JetBrains Mono',monospace;
+  font-size:22px;
+  font-weight:700;
+  margin:0;
+  letter-spacing:-0.5px;
+}
+.tagline{
+  font-size:13px;
+  color:var(--muted);
+  margin:4px 0 0;
+}
+.count-badge{
+  font-family:'JetBrains Mono',monospace;
+  font-size:12px;
+  background:var(--ink);
+  color:var(--bg);
+  padding:4px 10px;
+  border-radius:20px;
+  white-space:nowrap;
+}
+.search-bar{
+  margin-top:16px;
+  display:flex;
+  gap:8px;
+}
+.search-bar input{
+  flex:1;
+  padding:10px 12px;
+  border:1.5px solid var(--line);
+  border-radius:8px;
+  font-family:'Inter',sans-serif;
+  font-size:14px;
+  background:var(--bg);
+}
+.tabs{
+  display:flex;
+  gap:6px;
+  overflow-x:auto;
+  padding:14px 20px 0;
+  -webkit-overflow-scrolling:touch;
+}
+.tabs::-webkit-scrollbar{display:none;}
+.tab{
+  font-family:'JetBrains Mono',monospace;
+  font-size:12px;
+  padding:7px 12px;
+  border-radius:6px;
+  border:1.5px solid var(--line);
+  background:var(--surface);
+  color:var(--muted);
+  white-space:nowrap;
+  cursor:pointer;
+  user-select:none;
+}
+.tab.active{
+  background:var(--ink);
+  color:var(--bg);
+  border-color:var(--ink);
+}
+main{padding:16px 20px; max-width:640px; margin:0 auto;}
+.empty-state{
+  text-align:center;
+  padding:60px 20px;
+  color:var(--muted);
+}
+.empty-state .glyph{
+  font-family:'JetBrains Mono',monospace;
+  font-size:40px;
+  color:var(--line);
+  margin-bottom:10px;
+}
+.card{
+  background:var(--surface);
+  border:1.5px solid var(--ink);
+  border-radius:10px;
+  margin-bottom:14px;
+  display:flex;
+  overflow:hidden;
+  animation:fadein 0.25s ease;
+  cursor:pointer;
+}
+@keyframes fadein{from{opacity:0; transform:translateY(4px);} to{opacity:1; transform:translateY(0);}}
+.card-photo{
+  width:88px;
+  min-width:88px;
+  background:var(--bg);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-right:1.5px solid var(--line);
+  overflow:hidden;
+}
+.card-photo img{width:100%; height:100%; object-fit:cover;}
+.card-photo .no-photo{font-size:22px; color:var(--line);}
+.card-body{padding:12px 14px; flex:1; min-width:0;}
+.card-top{display:flex; justify-content:space-between; align-items:flex-start; gap:8px;}
+.ref-tag{
+  font-family:'JetBrains Mono',monospace;
+  font-size:11px;
+  font-weight:700;
+  padding:2px 7px;
+  border-radius:4px;
+  color:#fff;
+  white-space:nowrap;
+}
+.card-nom{font-weight:600; font-size:15px; margin:6px 0 2px; line-height:1.25;}
+.card-meta{font-size:12.5px; color:var(--muted); line-height:1.5;}
+.card-meta b{color:var(--ink); font-weight:500;}
+
+.fab{
+  position:fixed;
+  bottom:22px;
+  right:20px;
+  width:58px;
+  height:58px;
+  border-radius:50%;
+  background:var(--teal);
+  color:#fff;
+  border:none;
+  font-size:28px;
+  box-shadow:0 4px 14px rgba(0,0,0,0.25);
+  cursor:pointer;
+  z-index:20;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.overlay{
+  position:fixed; inset:0;
+  background:rgba(20,24,30,0.55);
+  z-index:30;
+  display:none;
+  align-items:flex-end;
+  justify-content:center;
+}
+.overlay.open{display:flex;}
+.sheet{
+  background:var(--bg);
+  width:100%;
+  max-width:640px;
+  max-height:92vh;
+  overflow-y:auto;
+  border-radius:16px 16px 0 0;
+  padding:20px 20px 30px;
+  animation:slideup 0.25s ease;
+}
+@keyframes slideup{from{transform:translateY(30px); opacity:0;} to{transform:translateY(0); opacity:1;}}
+.sheet-header{display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;}
+.sheet-header h2{
+  font-family:'JetBrains Mono',monospace;
+  font-size:17px;
+  margin:0;
+}
+.close-btn{
+  background:none; border:none; font-size:22px; color:var(--muted); cursor:pointer; padding:4px;
+}
+label{
+  display:block;
+  font-size:12px;
+  font-weight:600;
+  color:var(--muted);
+  margin:14px 0 5px;
+  text-transform:uppercase;
+  letter-spacing:0.3px;
+}
+input[type=text], input[type=number], select, textarea{
+  width:100%;
+  padding:11px 12px;
+  border:1.5px solid var(--line);
+  border-radius:8px;
+  font-family:'Inter',sans-serif;
+  font-size:15px;
+  background:var(--surface);
+  color:var(--ink);
+}
+textarea{resize:vertical; min-height:60px;}
+.ref-row{display:flex; gap:8px;}
+.ref-row input{flex:1;}
+.photo-picker{
+  margin-top:6px;
+  border:1.5px dashed var(--line);
+  border-radius:10px;
+  padding:14px;
+  text-align:center;
+  background:var(--surface);
+  position:relative;
+}
+.photo-picker img{max-width:100%; max-height:180px; border-radius:6px; display:block; margin:0 auto 8px;}
+.photo-picker input[type=file]{
+  position:absolute; inset:0; opacity:0; cursor:pointer;
+}
+.photo-picker .hint{font-size:13px; color:var(--muted);}
+.actions{display:flex; gap:10px; margin-top:22px;}
+.btn{
+  flex:1;
+  padding:13px;
+  border-radius:8px;
+  border:none;
+  font-family:'Inter',sans-serif;
+  font-weight:600;
+  font-size:15px;
+  cursor:pointer;
+}
+.btn-primary{background:var(--teal); color:#fff;}
+.btn-danger{background:transparent; color:var(--rose); border:1.5px solid var(--rose);}
+.btn-secondary{background:transparent; color:var(--muted); border:1.5px solid var(--line);}
+.ce-toggle{
+  display:flex; align-items:center; gap:10px;
+  margin-top:16px;
+  padding:12px;
+  background:var(--surface);
+  border:1.5px solid var(--line);
+  border-radius:8px;
+}
+.ce-toggle input{width:18px; height:18px; flex-shrink:0;}
+.ce-toggle span{font-size:14px; font-weight:500;}
+.vente-fields{
+  margin-top:10px;
+  padding:12px;
+  background:#EAF4F2;
+  border:1.5px solid var(--teal);
+  border-radius:8px;
+  display:none;
+}
+.vente-fields.open{display:block;}
+.sold-badge{
+  display:inline-block;
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;
+  font-weight:700;
+  padding:2px 6px;
+  border-radius:4px;
+  background:var(--teal);
+  color:#fff;
+  margin-left:6px;
+}
+.ce-fields{
+  margin-top:10px;
+  padding:12px;
+  background:#FFF7EE;
+  border:1.5px solid var(--orange);
+  border-radius:8px;
+  display:none;
+}
+.ce-fields.open{display:block;}
+.ce-fields .norm-row{display:flex; align-items:center; gap:8px; margin:8px 0;}
+.ce-fields .norm-row label{margin:0; text-transform:none; font-weight:400; font-size:14px; color:var(--ink);}
+.ce-fields .norm-row input{width:17px; height:17px;}
+.ce-badge{
+  display:inline-block;
+  font-family:'JetBrains Mono',monospace;
+  font-size:10px;
+  font-weight:700;
+  padding:2px 6px;
+  border-radius:4px;
+  background:var(--orange);
+  color:#fff;
+  margin-left:6px;
+}
+.autotest-row{
+  background:var(--surface);
+  border:1.5px solid var(--line);
+  border-radius:8px;
+  padding:10px 12px;
+  margin-bottom:8px;
+}
+.autotest-row .at-label{font-size:13px; font-weight:500; margin-bottom:6px; line-height:1.35;}
+.autotest-row select{
+  padding:8px 10px; font-size:13.5px; margin-bottom:6px;
+}
+.autotest-row input[type=text]{padding:8px 10px; font-size:13.5px;}
+.pdf-btn{
+  width:100%;
+  margin-top:14px;
+  padding:13px;
+  border-radius:8px;
+  border:1.5px solid var(--orange);
+  background:#FFF7EE;
+  color:var(--orange);
+  font-family:'Inter',sans-serif;
+  font-weight:600;
+  font-size:14.5px;
+  cursor:pointer;
+}
+.recap-block{
+  background:var(--surface);
+  border:1.5px solid var(--ink);
+  border-radius:10px;
+  padding:14px;
+  margin-bottom:12px;
+}
+.recap-top{display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px;}
+.recap-name{font-weight:700; font-size:15px;}
+.recap-stats{
+  font-family:'JetBrains Mono',monospace;
+  font-size:12px;
+  color:var(--teal);
+  font-weight:700;
+}
+.recap-product-row{
+  display:flex; justify-content:space-between;
+  font-size:13px; color:var(--muted);
+  padding:4px 0;
+  border-top:1px solid var(--line);
+}
+.recap-product-row:first-of-type{border-top:none;}
+.recap-product-row b{color:var(--ink); font-weight:500;}
+.detail-photo{width:100%; max-height:260px; object-fit:cover; border-radius:10px; border:1.5px solid var(--ink); margin-bottom:14px;}
+.detail-grid{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:16px;}
+.detail-item{background:var(--surface); border:1.5px solid var(--line); border-radius:8px; padding:10px 12px;}
+.detail-item .k{font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:0.3px;}
+.detail-item .v{font-size:14.5px; font-weight:600; margin-top:2px;}
+.toast{
+  position:fixed; bottom:24px; left:50%; transform:translateX(-50%);
+  background:var(--ink); color:#fff; padding:10px 18px; border-radius:20px;
+  font-size:13px; z-index:40; opacity:0; transition:opacity 0.25s;
+  font-family:'JetBrains Mono',monospace;
+}
+.toast.show{opacity:1;}
+</style>
+
+<link rel="manifest" href="./manifest.webmanifest">
+<meta name="application-name" content="Recreaju">
+<meta name="mobile-web-app-capable" content="yes">
+</head>
+<body>
+
+<header>
+  <div class="brand-row">
+    <div style="display:flex; align-items:center; gap:10px;">
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAABu0lEQVR4nGN8++4DAy0BC6aQfUMxJSYebOjFaQGFRmMFTMimC4qKQNgUMhgYGO6UWEMYjJA4QDadQrAhuxK7D96/fgMhKWSghTMLAw2CPmBqO8Q+BkgQQSygVhDBAcQO6gcRnAExlomBxoCoINpV3sTBysbAwPDv//8vP77ffP500ZF9Fx/dx280CUH0//9/iBomRkY+Ti5TJdXO8ARpQWEqB1HZwlkGhWk5C2f8+vOHi53dSlWTGF2IogISRFjzJyMjIwMDAzcfL5+w0KXHD559eKcgIibMy4s/V5McRF8/ff709p2erIKUgBADA8PtF8+ICSIspSku0BWf1hWfxsDA8PvvnzXHDu2/donKQQQHD9+8XnD8wL///6kcRGULZwW01336/k1FXDLE0ByXYooy2t0XzxYf2c/AwBBqbc/DwUmMFoQF8CDCZMBTkaCoyObzp77+/MnNzhFobIFVMVpQk5aK3r9+8+3Xz7XHDjIwMISYWX/78JEmZdHSQ/v+/fsnyM3jb2ZNUPFocU0QDI8gQmuLUREcbOglqiwij4ESRAcbeqkeRJCAYURuXVOxgQQPdkbM5jt1W9cAzrFHaw5LJ5IAAAAASUVORK5CYII=" alt="Recreaju" style="width:34px; height:34px; border-radius:8px; flex-shrink:0;">
+      <div>
+        <h1>REGISTRE · RECREAJU</h1>
+        <p class="tagline">Fiches produits &amp; traçabilité — Plomeur</p>
+      </div>
+    </div>
+    <span class="count-badge" id="countBadge">0 fiches</span>
+  </div>
+  <div class="search-bar">
+    <input type="text" id="searchInput" placeholder="Rechercher (nom, créateur, référence)…">
+    <button class="btn btn-secondary" id="recapBtn" style="flex:0 0 auto; padding:10px 14px; font-size:13px;">📊 Récap</button>
+  </div>
+  <div style="display:flex; gap:8px; margin-top:8px;">
+    <button class="btn btn-secondary" id="exportBtn" style="padding:9px; font-size:12.5px;">⬇ Exporter une sauvegarde</button>
+    <button class="btn btn-secondary" id="importBtn" style="padding:9px; font-size:12.5px;">⬆ Importer une sauvegarde</button>
+    <input type="file" id="importFile" accept="application/json" style="display:none;">
+  </div>
+  <button class="btn btn-primary" id="installBtn" style="display:none; width:100%; margin-top:8px; padding:10px; font-size:13px;">📲 Installer l’appli Recreaju</button>
+</header>
+
+<div class="tabs" id="tabs"></div>
+
+<main id="list"></main>
+
+<button class="fab" id="addBtn" aria-label="Ajouter une fiche">+</button>
+
+<div class="overlay" id="formOverlay">
+  <div class="sheet">
+    <div class="sheet-header">
+      <h2 id="formTitle">Nouvelle fiche</h2>
+      <button class="close-btn" id="closeForm">✕</button>
+    </div>
+
+    <label>Catégorie</label>
+    <select id="f_category">
+      <option value="Porte-clés">Porte-clés</option>
+      <option value="Tours à dés">Tours à dés</option>
+      <option value="Décoration">Décoration</option>
+      <option value="Figurines JDR">Figurines JDR</option>
+      <option value="Accessoires sensoriels">Accessoires sensoriels</option>
+      <option value="Autre">Autre</option>
+    </select>
+
+    <label>Référence</label>
+    <div class="ref-row">
+      <input type="text" id="f_ref" placeholder="ex: PC-004">
+    </div>
+
+    <label>Nom du produit</label>
+    <input type="text" id="f_nom" placeholder="ex: Porte-clés dragon">
+
+    <label>Créateur / créatrice</label>
+    <input type="text" id="f_createur" placeholder="ex: Aurélie">
+
+    <label>Filament(s) utilisé(s)</label>
+    <input type="text" id="f_filament1" placeholder="Filament 1 — ex: PLA Bambu Lab Orange">
+    <input type="text" id="f_filament2" placeholder="Filament 2 (optionnel)" style="margin-top:6px;">
+    <input type="text" id="f_filament3" placeholder="Filament 3 (optionnel)" style="margin-top:6px;">
+    <input type="text" id="f_filament4" placeholder="Filament 4 (optionnel)" style="margin-top:6px;">
+
+    <label>Temps d'impression</label>
+    <input type="text" id="f_temps" placeholder="ex: 3h45">
+
+    <label>Coût d'impression (€)</label>
+    <input type="number" step="0.01" id="f_cout" placeholder="ex: 1.85">
+
+    <div class="ce-toggle">
+      <input type="checkbox" id="f_vendu">
+      <span>Ce produit a été vendu</span>
+    </div>
+    <div class="vente-fields" id="venteFields">
+      <label style="margin-top:0;">Quantité vendue</label>
+      <input type="number" id="f_quantite" min="0" step="1" placeholder="ex: 3">
+    </div>
+
+    <label>Notes (optionnel)</label>
+    <textarea id="f_notes" placeholder="Précisions utiles en cas de contrôle…"></textarea>
+
+    <div class="ce-toggle">
+      <input type="checkbox" id="f_ce">
+      <span>Ce produit est un jouet — nécessite le marquage CE</span>
+    </div>
+    <div class="ce-fields" id="ceFields">
+      <label style="margin-top:0;">Normes appliquées</label>
+      <div class="norm-row"><input type="checkbox" id="norm_en71-1" value="EN 71-1 (propriétés mécaniques et physiques)"><label for="norm_en71-1">EN 71-1 (mécanique &amp; physique)</label></div>
+      <div class="norm-row"><input type="checkbox" id="norm_en71-2" value="EN 71-2 (inflammabilité)"><label for="norm_en71-2">EN 71-2 (inflammabilité)</label></div>
+      <div class="norm-row"><input type="checkbox" id="norm_en71-3" value="EN 71-3 (migration de certains éléments)"><label for="norm_en71-3">EN 71-3 (migration éléments chimiques)</label></div>
+      <label>Organisme notifié (si applicable)</label>
+      <input type="text" id="f_organisme" placeholder="Laisser vide si non applicable">
+      <label>N° de certificat / rapport d'essai (si applicable)</label>
+      <input type="text" id="f_certificat" placeholder="ex: numéro du rapport de test">
+
+      <label style="margin-top:16px;">Preuve de conformité chimique du filament (EN 71-3)</label>
+      <select id="f_filamentProof">
+        <option value="">— À sélectionner —</option>
+        <option value="Certificat fournisseur EN 71-3">Certificat fournisseur EN 71-3</option>
+        <option value="Fiche de données de sécurité (FDS) fournisseur">Fiche de données de sécurité (FDS) fournisseur</option>
+        <option value="Test réalisé par un laboratoire accrédité">Test réalisé par un laboratoire accrédité</option>
+        <option value="Aucune preuve pour le moment">Aucune preuve pour le moment — à obtenir</option>
+      </select>
+      <label>Référence / lien du justificatif</label>
+      <input type="text" id="f_filamentProofRef" placeholder="ex: nom du fournisseur, n° de lot, lien du certificat">
+
+      <label style="margin-top:16px;">Auto-évaluation mécanique EN 71-1</label>
+      <p style="font-size:12.5px; color:var(--muted); margin:0 0 8px;">Réalisable par vous-même si vous suivez le protocole et documentez chaque point (mesures, photos). Ceci ne remplace pas un test labo pour les aspects chimiques.</p>
+      <div id="autoTestRows"></div>
+    </div>
+
+    <label>Photo</label>
+    <div class="photo-picker" id="photoPicker">
+      <div id="photoPreviewWrap"><div class="hint">Touche ici pour ajouter une photo</div></div>
+      <input type="file" id="f_photo" accept="image/*">
+    </div>
+
+    <div class="actions">
+      <button class="btn btn-secondary" id="cancelForm">Annuler</button>
+      <button class="btn btn-primary" id="saveForm">Enregistrer</button>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="detailOverlay">
+  <div class="sheet">
+    <div class="sheet-header">
+      <h2 id="detailRef">REF</h2>
+      <button class="close-btn" id="closeDetail">✕</button>
+    </div>
+    <div id="detailContent"></div>
+    <div class="actions">
+      <button class="btn btn-secondary" id="editBtn">Modifier</button>
+      <button class="btn btn-danger" id="deleteBtn">Supprimer</button>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="recapOverlay">
+  <div class="sheet">
+    <div class="sheet-header">
+      <h2>Récap par modélisateur</h2>
+      <button class="close-btn" id="closeRecap">✕</button>
+    </div>
+    <div id="recapContent"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+const AUTOTEST_ITEMS = [
+  {id:'mech1', text:"Absence de petites pièces détachables pouvant se loger dans la bouche (test du cylindre) — sans objet si le produit est strictement destiné aux 14 ans et plus"},
+  {id:'mech2', text:"Absence d'arêtes ou de pointes coupantes accessibles"},
+  {id:'mech3', text:"Résistance des anneaux/attaches à la traction (si le produit comporte un point d'accroche)"},
+  {id:'mech4', text:"Absence de risque de pincement ou de coincement des doigts"},
+  {id:'mech5', text:"Cordons / élastiques de longueur raisonnable (pas de risque de strangulation)"},
+  {id:'mech6', text:"Le produit ne se brise pas facilement en fragments coupants (test de chute / choc)"}
+];
+
+function renderAutoTestRows(){
+  const container = document.getElementById('autoTestRows');
+  container.innerHTML = AUTOTEST_ITEMS.map(item => `
+    <div class="autotest-row">
+      <div class="at-label">${item.text}</div>
+      <select id="at_${item.id}_status">
+        <option value="">— Statut —</option>
+        <option value="Conforme">Conforme</option>
+        <option value="Non conforme">Non conforme</option>
+        <option value="Non applicable">Non applicable</option>
+      </select>
+      <input type="text" id="at_${item.id}_note" placeholder="Note (mesure, observation…)">
+    </div>
+  `).join('');
+}
+renderAutoTestRows();
+
+const CATEGORIES = ["Porte-clés","Tours à dés","Décoration","Figurines JDR","Accessoires sensoriels","Autre"];
+const CAT_COLOR = {
+  "Porte-clés":"#2C6E63",
+  "Tours à dés":"#4A5FC1",
+  "Décoration":"#C9622B",
+  "Figurines JDR":"#8B4B9E",
+  "Accessoires sensoriels":"#B23A55",
+  "Autre":"#5B6673"
+};
+const CAT_PREFIX = {
+  "Porte-clés":"PC","Tours à dés":"TD","Décoration":"DE",
+  "Figurines JDR":"FJ","Accessoires sensoriels":"AS","Autre":"AU"
+};
+
+let index = [];
+let entryCache = {};
+let storageBroken = false;
+let activeTab = "Tous";
+let editingId = null;
+let pendingPhoto = null;
+
+function toast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 5000);
+}
+
+const STORAGE_PREFIX = 'recreaju_v1_';
+
+async function loadIndex(){
+  try{
+    const raw = localStorage.getItem(STORAGE_PREFIX + 'index');
+    index = raw ? JSON.parse(raw) : [];
+    if(!Array.isArray(index)) index = [];
+  }catch(e){
+    console.error('Erreur de chargement de l\'index :', e);
+    index = [];
+    toast("⚠ Impossible de lire les données enregistrées sur cet appareil");
+  }
+  renderTabs();
+  renderList();
+}
+
+async function saveIndex(){
+  try{
+    localStorage.setItem(STORAGE_PREFIX + 'index', JSON.stringify(index));
+    return true;
+  }catch(e){
+    console.error('Erreur de sauvegarde de l\'index :', e);
+    if(!storageBroken){
+      storageBroken = true;
+      toast("⚠ Sauvegarde locale impossible — exporte une copie JSON");
+    }
+    return false;
+  }
+}
+
+async function loadEntry(id){
+  if(entryCache[id]) return entryCache[id];
+  try{
+    const raw = localStorage.getItem(STORAGE_PREFIX + 'entry:' + id);
+    const entry = raw ? JSON.parse(raw) : null;
+    if(entry) entryCache[id] = entry;
+    return entry;
+  }catch(e){
+    console.error('Erreur de chargement de la fiche', id, e);
+    return null;
+  }
+}
+
+async function saveEntry(entry){
+  entryCache[entry.id] = entry;
+  try{
+    localStorage.setItem(STORAGE_PREFIX + 'entry:' + entry.id, JSON.stringify(entry));
+    return true;
+  }catch(e){
+    console.error('Erreur de sauvegarde de la fiche :', e);
+    if(!storageBroken){
+      storageBroken = true;
+      toast("⚠ Sauvegarde locale impossible — exporte une copie JSON");
+    }
+    return false;
+  }
+}
+
+async function deleteEntryStorage(id){
+  try{
+    localStorage.removeItem(STORAGE_PREFIX + 'entry:' + id);
+    delete entryCache[id];
+  }catch(e){
+    console.error('Erreur de suppression de la fiche :', e);
+  }
+}
+
+function renderTabs(){
+  const tabsEl = document.getElementById('tabs');
+  const counts = {};
+  index.forEach(e => counts[e.category] = (counts[e.category]||0)+1);
+  const allTabs = ["Tous", ...CATEGORIES];
+  tabsEl.innerHTML = allTabs.map(cat => {
+    const n = cat === "Tous" ? index.length : (counts[cat]||0);
+    return `<div class="tab ${activeTab===cat?'active':''}" data-cat="${cat}">${cat} (${n})</div>`;
+  }).join('');
+  tabsEl.querySelectorAll('.tab').forEach(el=>{
+    el.addEventListener('click', ()=>{ activeTab = el.dataset.cat; renderTabs(); renderList(); });
+  });
+}
+
+function renderList(){
+  const listEl = document.getElementById('list');
+  const q = document.getElementById('searchInput').value.trim().toLowerCase();
+  let items = index.slice().sort((a,b)=> b.dateAdded - a.dateAdded);
+  if(activeTab !== "Tous") items = items.filter(e => e.category === activeTab);
+  if(q) items = items.filter(e =>
+    (e.nom||'').toLowerCase().includes(q) ||
+    (e.createur||'').toLowerCase().includes(q) ||
+    (e.ref||'').toLowerCase().includes(q)
+  );
+  document.getElementById('countBadge').textContent = index.length + (index.length===1?' fiche':' fiches');
+
+  if(items.length===0){
+    listEl.innerHTML = `<div class="empty-state"><div class="glyph">◇</div>Aucune fiche pour l'instant.<br>Touche le bouton + pour commencer.</div>`;
+    return;
+  }
+  listEl.innerHTML = items.map(e => `
+    <div class="card" data-id="${e.id}">
+      <div class="card-photo">${e.thumb ? `<img src="${e.thumb}">` : `<div class="no-photo">◇</div>`}</div>
+      <div class="card-body">
+        <div class="card-top">
+          <span class="ref-tag" style="background:${CAT_COLOR[e.category]||'#5B6673'}">${e.ref}</span>${e.necessiteCE ? '<span class="ce-badge">CE</span>' : ''}${e.vendu ? `<span class="sold-badge">VENDU ×${e.quantite||0}</span>` : ''}
+        </div>
+        <div class="card-nom">${escapeHtml(e.nom)}</div>
+        <div class="card-meta">
+          <b>${escapeHtml(e.createur||'—')}</b> · ${escapeHtml((e.filaments||[]).join(' + ')||'—')}<br>
+          ${escapeHtml(e.temps||'—')} · ${e.cout!=null && e.cout!=='' ? e.cout+' €' : '—'}
+        </div>
+      </div>
+    </div>
+  `).join('');
+  listEl.querySelectorAll('.card').forEach(el=>{
+    el.addEventListener('click', ()=> openDetail(el.dataset.id));
+  });
+}
+
+function escapeHtml(str){
+  if(!str) return '';
+  return str.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function nextRef(category){
+  const prefix = CAT_PREFIX[category] || "AU";
+  const nums = index.filter(e=>e.category===category).map(e=>{
+    const m = (e.ref||'').match(/(\d+)$/);
+    return m ? parseInt(m[1],10) : 0;
+  });
+  const next = (nums.length ? Math.max(...nums) : 0) + 1;
+  return prefix + '-' + String(next).padStart(3,'0');
+}
+
+function openForm(id){
+  editingId = id || null;
+  pendingPhoto = null;
+  document.getElementById('formTitle').textContent = id ? 'Modifier la fiche' : 'Nouvelle fiche';
+  document.getElementById('photoPreviewWrap').innerHTML = `<div class="hint">Touche ici pour ajouter une photo</div>`;
+
+  if(id){
+    loadEntry(id).then(entry=>{
+      if(!entry) return;
+      document.getElementById('f_category').value = entry.category;
+      document.getElementById('f_ref').value = entry.ref;
+      document.getElementById('f_nom').value = entry.nom;
+      document.getElementById('f_createur').value = entry.createur;
+      const fils = entry.filaments || (entry.filament ? [entry.filament] : []);
+      document.getElementById('f_filament1').value = fils[0] || '';
+      document.getElementById('f_filament2').value = fils[1] || '';
+      document.getElementById('f_filament3').value = fils[2] || '';
+      document.getElementById('f_filament4').value = fils[3] || '';
+      document.getElementById('f_temps').value = entry.temps;
+      document.getElementById('f_cout').value = entry.cout;
+      document.getElementById('f_notes').value = entry.notes || '';
+      document.getElementById('f_vendu').checked = !!entry.vendu;
+      document.getElementById('venteFields').classList.toggle('open', !!entry.vendu);
+      document.getElementById('f_quantite').value = entry.quantite || '';
+      document.getElementById('f_ce').checked = !!entry.necessiteCE;
+      document.getElementById('ceFields').classList.toggle('open', !!entry.necessiteCE);
+      document.getElementById('norm_en71-1').checked = (entry.normes||[]).some(n=>n.startsWith('EN 71-1'));
+      document.getElementById('norm_en71-2').checked = (entry.normes||[]).some(n=>n.startsWith('EN 71-2'));
+      document.getElementById('norm_en71-3').checked = (entry.normes||[]).some(n=>n.startsWith('EN 71-3'));
+      document.getElementById('f_organisme').value = entry.organisme || '';
+      document.getElementById('f_certificat').value = entry.certificat || '';
+      document.getElementById('f_filamentProof').value = entry.filamentProof || '';
+      document.getElementById('f_filamentProofRef').value = entry.filamentProofRef || '';
+      (entry.autoTest||[]).forEach(row=>{
+        const s = document.getElementById('at_'+row.id+'_status');
+        const n = document.getElementById('at_'+row.id+'_note');
+        if(s) s.value = row.status || '';
+        if(n) n.value = row.note || '';
+      });
+      if(entry.photo){
+        pendingPhoto = entry.photo;
+        document.getElementById('photoPreviewWrap').innerHTML = `<img src="${entry.photo}">`;
+      }
+    });
+  } else {
+    document.getElementById('f_category').value = "Porte-clés";
+    document.getElementById('f_ref').value = nextRef("Porte-clés");
+    document.getElementById('f_nom').value = '';
+    document.getElementById('f_createur').value = 'Aurélie';
+    document.getElementById('f_filament1').value = '';
+    document.getElementById('f_filament2').value = '';
+    document.getElementById('f_filament3').value = '';
+    document.getElementById('f_filament4').value = '';
+    document.getElementById('f_temps').value = '';
+    document.getElementById('f_cout').value = '';
+    document.getElementById('f_notes').value = '';
+    document.getElementById('f_vendu').checked = false;
+    document.getElementById('venteFields').classList.remove('open');
+    document.getElementById('f_quantite').value = '';
+    document.getElementById('f_ce').checked = false;
+    document.getElementById('ceFields').classList.remove('open');
+    document.getElementById('norm_en71-1').checked = false;
+    document.getElementById('norm_en71-2').checked = false;
+    document.getElementById('norm_en71-3').checked = false;
+    document.getElementById('f_organisme').value = '';
+    document.getElementById('f_certificat').value = '';
+    document.getElementById('f_filamentProof').value = '';
+    document.getElementById('f_filamentProofRef').value = '';
+    AUTOTEST_ITEMS.forEach(item=>{
+      document.getElementById('at_'+item.id+'_status').value = '';
+      document.getElementById('at_'+item.id+'_note').value = '';
+    });
+  }
+  document.getElementById('formOverlay').classList.add('open');
+}
+
+document.getElementById('f_ce').addEventListener('change', (e)=>{
+  document.getElementById('ceFields').classList.toggle('open', e.target.checked);
+});
+document.getElementById('f_vendu').addEventListener('change', (e)=>{
+  document.getElementById('venteFields').classList.toggle('open', e.target.checked);
+});
+
+document.getElementById('f_category').addEventListener('change', (e)=>{
+  if(!editingId){
+    document.getElementById('f_ref').value = nextRef(e.target.value);
+  }
+});
+
+document.getElementById('f_photo').addEventListener('change', (e)=>{
+  const file = e.target.files[0];
+  if(!file){ toast("Aucun fichier sélectionné"); return; }
+  const reader = new FileReader();
+  reader.onerror = function(){ toast("Erreur de lecture du fichier photo"); };
+  reader.onload = function(ev){
+    const img = new Image();
+    img.onerror = function(){ toast("Erreur : image illisible"); };
+    img.onload = function(){
+      try{
+        const maxW = 900;
+        const scale = Math.min(1, maxW/img.width);
+        const canvas = document.createElement('canvas');
+        canvas.width = img.width*scale;
+        canvas.height = img.height*scale;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        const dataUrl = canvas.toDataURL('image/jpeg', 0.65);
+        pendingPhoto = dataUrl;
+        document.getElementById('photoPreviewWrap').innerHTML = `<img src="${dataUrl}">`;
+        toast("Photo ajoutée");
+      }catch(err){
+        toast("Erreur traitement photo: " + (err && err.message ? err.message : String(err)));
+      }
+    };
+    img.src = ev.target.result;
+  };
+  reader.readAsDataURL(file);
+});
+
+function makeThumb(dataUrl, cb){
+  const img = new Image();
+  img.onload = function(){
+    const size = 120;
+    const canvas = document.createElement('canvas');
+    canvas.width = size; canvas.height = size;
+    const ctx = canvas.getContext('2d');
+    const s = Math.max(size/img.width, size/img.height);
+    const w = img.width*s, h = img.height*s;
+    ctx.drawImage(img, (size-w)/2, (size-h)/2, w, h);
+    cb(canvas.toDataURL('image/jpeg', 0.6));
+  };
+  img.src = dataUrl;
+}
+
+document.getElementById('saveForm').addEventListener('click', async ()=>{
+  const category = document.getElementById('f_category').value;
+  const ref = document.getElementById('f_ref').value.trim();
+  const nom = document.getElementById('f_nom').value.trim();
+  if(!nom){ toast("Le nom du produit est requis"); return; }
+  if(!ref){ toast("La référence est requise"); return; }
+
+  const filaments = [
+    document.getElementById('f_filament1').value.trim(),
+    document.getElementById('f_filament2').value.trim(),
+    document.getElementById('f_filament3').value.trim(),
+    document.getElementById('f_filament4').value.trim()
+  ].filter(Boolean);
+
+  const id = editingId || (Date.now().toString(36) + Math.random().toString(36).slice(2,7));
+  const entry = {
+    id, category, ref, nom,
+    createur: document.getElementById('f_createur').value.trim(),
+    filaments: filaments,
+    temps: document.getElementById('f_temps').value.trim(),
+    cout: document.getElementById('f_cout').value,
+    notes: document.getElementById('f_notes').value.trim(),
+    photo: pendingPhoto || null,
+    vendu: document.getElementById('f_vendu').checked,
+    quantite: document.getElementById('f_vendu').checked ? (parseInt(document.getElementById('f_quantite').value,10) || 0) : 0,
+    necessiteCE: document.getElementById('f_ce').checked,
+    normes: ['norm_en71-1','norm_en71-2','norm_en71-3']
+      .filter(id => document.getElementById(id).checked)
+      .map(id => document.getElementById(id).value),
+    organisme: document.getElementById('f_organisme').value.trim(),
+    certificat: document.getElementById('f_certificat').value.trim(),
+    filamentProof: document.getElementById('f_filamentProof').value,
+    filamentProofRef: document.getElementById('f_filamentProofRef').value.trim(),
+    autoTest: AUTOTEST_ITEMS.map(item => ({
+      id: item.id,
+      text: item.text,
+      status: document.getElementById('at_'+item.id+'_status').value,
+      note: document.getElementById('at_'+item.id+'_note').value.trim()
+    })),
+    dateAdded: editingId ? (index.find(e=>e.id===editingId)?.dateAdded || Date.now()) : Date.now()
+  };
+
+  const ok = await saveEntry(entry);
+  if(!ok) return;
+
+  function updateIndexAndFinish(thumb){
+    const idxEntry = {
+      id, category, ref, nom,
+      createur: entry.createur, filaments: entry.filaments,
+      temps: entry.temps, cout: entry.cout,
+      dateAdded: entry.dateAdded, thumb: thumb || null,
+      necessiteCE: entry.necessiteCE,
+      vendu: entry.vendu, quantite: entry.quantite
+    };
+    const pos = index.findIndex(e=>e.id===id);
+    if(pos>=0) index[pos] = idxEntry; else index.push(idxEntry);
+    saveIndex().then(()=>{
+      renderTabs(); renderList();
+      closeFormFn();
+      toast(editingId ? "Fiche mise à jour" : "Fiche enregistrée");
+    });
+  }
+
+  if(pendingPhoto){
+    makeThumb(pendingPhoto, updateIndexAndFinish);
+  } else {
+    updateIndexAndFinish(null);
+  }
+});
+
+function closeFormFn(){
+  document.getElementById('formOverlay').classList.remove('open');
+  editingId = null;
+  pendingPhoto = null;
+}
+document.getElementById('closeForm').addEventListener('click', closeFormFn);
+document.getElementById('cancelForm').addEventListener('click', closeFormFn);
+document.getElementById('addBtn').addEventListener('click', ()=> openForm(null));
+
+async function openDetail(id){
+  const entry = await loadEntry(id);
+  if(!entry){ toast("Fiche introuvable"); return; }
+  document.getElementById('detailRef').textContent = entry.ref;
+  document.getElementById('detailContent').innerHTML = `
+    ${entry.photo ? `<img class="detail-photo" src="${entry.photo}">` : ''}
+    <div class="detail-grid">
+      <div class="detail-item"><div class="k">Produit</div><div class="v">${escapeHtml(entry.nom)}</div></div>
+      <div class="detail-item"><div class="k">Catégorie</div><div class="v">${escapeHtml(entry.category)}</div></div>
+      <div class="detail-item"><div class="k">Créateur</div><div class="v">${escapeHtml(entry.createur||'—')}</div></div>
+      <div class="detail-item"><div class="k">Filament(s)</div><div class="v">${escapeHtml((entry.filaments||[]).join(', ')||'—')}</div></div>
+      <div class="detail-item"><div class="k">Temps</div><div class="v">${escapeHtml(entry.temps||'—')}</div></div>
+      <div class="detail-item"><div class="k">Coût</div><div class="v">${entry.cout!=null && entry.cout!=='' ? entry.cout+' €' : '—'}</div></div>
+      <div class="detail-item"><div class="k">Vendu</div><div class="v">${entry.vendu ? '✓ Oui — '+ (entry.quantite||0) + ' unité(s)' : 'Non'}</div></div>
+    </div>
+    ${entry.notes ? `<div class="detail-item" style="margin-bottom:16px;"><div class="k">Notes</div><div class="v" style="font-weight:400;">${escapeHtml(entry.notes)}</div></div>` : ''}
+    ${entry.necessiteCE ? `
+      <div class="detail-item" style="margin-bottom:16px;">
+        <div class="k">Preuve filament (EN 71-3)</div>
+        <div class="v" style="font-weight:500;">${entry.filamentProof ? escapeHtml(entry.filamentProof) : '⚠ non renseignée'}</div>
+      </div>
+      <div class="detail-item" style="margin-bottom:16px;">
+        <div class="k">Auto-évaluation mécanique</div>
+        <div class="v" style="font-weight:500;">${(entry.autoTest||[]).filter(r=>r.status==='Conforme'||r.status==='Non applicable').length} / ${(entry.autoTest||[]).length} points traités</div>
+      </div>
+      <button class="pdf-btn" id="genPdfBtn">📄 Télécharger la Déclaration UE de Conformité</button>
+    ` : ''}
+  `;
+  document.getElementById('detailOverlay').classList.add('open');
+  if(entry.necessiteCE){
+    document.getElementById('genPdfBtn').onclick = ()=> generateDoC(entry);
+  }
+  document.getElementById('editBtn').onclick = ()=>{
+    document.getElementById('detailOverlay').classList.remove('open');
+    openForm(id);
+  };
+  document.getElementById('deleteBtn').onclick = async ()=>{
+    if(!confirm("Supprimer définitivement cette fiche ?")) return;
+    await deleteEntryStorage(id);
+    index = index.filter(e=>e.id!==id);
+    await saveIndex();
+    document.getElementById('detailOverlay').classList.remove('open');
+    renderTabs(); renderList();
+    toast("Fiche supprimée");
+  };
+}
+function generateDoC(entry){
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ unit: 'mm', format: 'a4' });
+  const pageW = 210;
+  const margin = 20;
+  let y = 22;
+
+  function line(h=7){ y += h; }
+  function heading(text){
+    doc.setFont('helvetica','bold'); doc.setFontSize(14);
+    doc.text(text, margin, y);
+    line(9);
+  }
+  function label(text){
+    doc.setFont('helvetica','bold'); doc.setFontSize(10);
+    doc.text(text, margin, y);
+    line(5.5);
+  }
+  function body(text, size=10){
+    doc.setFont('helvetica','normal'); doc.setFontSize(size);
+    const lines = doc.splitTextToSize(text, pageW - margin*2);
+    doc.text(lines, margin, y);
+    line(lines.length * 5 + 3);
+  }
+  function ruleLine(){
+    doc.setDrawColor(180,180,180);
+    doc.line(margin, y, pageW-margin, y);
+    line(6);
+  }
+
+  doc.setFont('helvetica','bold'); doc.setFontSize(17);
+  doc.text('DÉCLARATION UE DE CONFORMITÉ', margin, y);
+  line(6);
+  doc.setFont('helvetica','normal'); doc.setFontSize(10);
+  doc.setTextColor(90,90,90);
+  doc.text(`N° ${entry.ref}`, margin, y);
+  doc.setTextColor(0,0,0);
+  line(10);
+  ruleLine();
+
+  label('1. Fabricant');
+  body('Recreaju — Aurélie (auto-entrepreneur)\nSIRET : 931 116 677 00010\n6 lot. Mejou Braz, 29120 Plomeur, France');
+
+  label('2. La présente déclaration de conformité est établie sous la seule responsabilité du fabricant.');
+  line(2);
+
+  label('3. Objet de la déclaration — identification du produit');
+  body(`Référence produit : ${entry.ref}\nNom du produit : ${entry.nom}\nCatégorie : ${entry.category}${entry.createur ? '\nRéalisé par : '+entry.createur : ''}`);
+
+  label('4. L\'objet de la déclaration décrit ci-dessus est conforme à la législation d\'harmonisation de l\'Union applicable :');
+  body('Directive 2009/48/CE relative à la sécurité des jouets\nRèglement (UE) 2023/988 relatif à la sécurité générale des produits (GPSR)');
+
+  label('5. Références des normes harmonisées appliquées :');
+  if(entry.normes && entry.normes.length){
+    body(entry.normes.map(n=>'• '+n).join('\n'));
+  } else {
+    body('Aucune norme cochée sur la fiche — à compléter avant utilisation de cette déclaration.');
+  }
+
+  if(entry.organisme || entry.certificat){
+    label('6. Organisme notifié / certification');
+    body(`${entry.organisme ? 'Organisme notifié : '+entry.organisme+'\n' : ''}${entry.certificat ? 'N° de certificat / rapport d\'essai : '+entry.certificat : ''}`);
+  }
+
+  label('7. Informations complémentaires');
+  body('Le marquage CE doit être apposé de façon visible, lisible et indélébile sur le produit et/ou son emballage, conformément à l\'article 17 de la directive 2009/48/CE. Cette déclaration doit être conservée par le fabricant pendant 10 ans et accompagnée du dossier technique correspondant (notice, tests, photos, fiche filament).');
+
+  if(y > 250) { doc.addPage(); y = 22; }
+  ruleLine();
+  label('Signé par et pour le compte de :');
+  body(`Nom : Aurélie — Recreaju\nLieu : Plomeur\nDate : ${new Date().toLocaleDateString('fr-FR')}`);
+  line(14);
+  doc.setFont('helvetica','normal'); doc.setFontSize(10);
+  doc.text('Signature :', margin, y);
+  doc.setDrawColor(0,0,0);
+  doc.line(margin+30, y, margin+100, y);
+
+  // ---- Annexe technique ----
+  doc.addPage();
+  y = 22;
+  doc.setFont('helvetica','bold'); doc.setFontSize(15);
+  doc.text('ANNEXE — DOSSIER TECHNIQUE', margin, y);
+  line(10);
+
+  label("Preuve de conformité chimique du filament (EN 71-3)");
+  if(entry.filamentProof){
+    body(`Type de preuve : ${entry.filamentProof}${entry.filamentProofRef ? '\nRéférence : '+entry.filamentProofRef : ''}`);
+  } else {
+    body("⚠ Aucune preuve renseignée. Un certificat fournisseur, une FDS ou un rapport de laboratoire est nécessaire avant la mise en vente — l'analyse chimique ne peut pas être réalisée soi-même.");
+  }
+
+  label("Auto-évaluation mécanique EN 71-1");
+  body("Contrôles réalisés par le fabricant lui-même, à documenter avec mesures et photos à l'appui. Ne remplace pas un test de laboratoire.", 9);
+  (entry.autoTest||[]).forEach(row=>{
+    doc.setFont('helvetica','bold'); doc.setFontSize(9.5);
+    const statusTxt = row.status || 'Non renseigné';
+    const lines = doc.splitTextToSize(`• ${row.text}`, pageW - margin*2 - 5);
+    if(y + lines.length*4.3 + 10 > 280){ doc.addPage(); y = 22; }
+    doc.text(lines, margin, y);
+    y += lines.length * 4.3;
+    doc.setFont('helvetica','normal'); doc.setFontSize(9);
+    doc.setTextColor(90,90,90);
+    doc.text(`   Statut : ${statusTxt}${row.note ? '  —  '+row.note : ''}`, margin, y);
+    doc.setTextColor(0,0,0);
+    y += 6;
+  });
+
+  doc.save(`DoC_${entry.ref}.pdf`);
+}
+
+document.getElementById('closeDetail').addEventListener('click', ()=>{
+  document.getElementById('detailOverlay').classList.remove('open');
+});
+
+document.getElementById('searchInput').addEventListener('input', renderList);
+
+function renderRecap(){
+  const byCreator = {};
+  index.forEach(e=>{
+    const c = e.createur || 'Non renseigné';
+    if(!byCreator[c]) byCreator[c] = { totalQty:0, refs:0, produits:[] };
+    if(e.vendu){
+      byCreator[c].totalQty += (e.quantite||0);
+      byCreator[c].refs += 1;
+      byCreator[c].produits.push({ nom:e.nom, ref:e.ref, qty:e.quantite||0 });
+    }
+  });
+  const creators = Object.keys(byCreator)
+    .filter(c => byCreator[c].refs > 0)
+    .sort((a,b)=> byCreator[b].totalQty - byCreator[a].totalQty);
+
+  const content = document.getElementById('recapContent');
+  if(creators.length === 0){
+    content.innerHTML = `<div class="empty-state"><div class="glyph">◇</div>Aucune vente enregistrée pour le moment.<br>Coche "vendu" sur une fiche pour l'inclure ici.</div>`;
+    return;
+  }
+  content.innerHTML = creators.map(c=>{
+    const d = byCreator[c];
+    const rows = d.produits
+      .sort((a,b)=> b.qty - a.qty)
+      .map(p => `<div class="recap-product-row"><b>${escapeHtml(p.nom)}</b><span>${escapeHtml(p.ref)} · ×${p.qty}</span></div>`)
+      .join('');
+    return `
+      <div class="recap-block">
+        <div class="recap-top">
+          <span class="recap-name">${escapeHtml(c)}</span>
+          <span class="recap-stats">${d.totalQty} vendu(s) · ${d.refs} réf.</span>
+        </div>
+        ${rows}
+      </div>
+    `;
+  }).join('');
+}
+
+document.getElementById('recapBtn').addEventListener('click', ()=>{
+  renderRecap();
+  document.getElementById('recapOverlay').classList.add('open');
+});
+document.getElementById('closeRecap').addEventListener('click', ()=>{
+  document.getElementById('recapOverlay').classList.remove('open');
+});
+
+document.getElementById('exportBtn').addEventListener('click', async ()=>{
+  const entries = [];
+  for(const e of index){
+    const full = await loadEntry(e.id);
+    if(full) entries.push(full);
+  }
+  const backup = { exportedAt: new Date().toISOString(), index, entries };
+  const blob = new Blob([JSON.stringify(backup)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  const dateStr = new Date().toISOString().slice(0,10);
+  a.href = url;
+  a.download = `registre-recreaju-sauvegarde-${dateStr}.json`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  toast("Sauvegarde téléchargée");
+});
+
+document.getElementById('importBtn').addEventListener('click', ()=>{
+  document.getElementById('importFile').click();
+});
+
+document.getElementById('importFile').addEventListener('change', (e)=>{
+  const file = e.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = async function(ev){
+    try{
+      const backup = JSON.parse(ev.target.result);
+      if(!backup.index || !backup.entries) throw new Error('format invalide');
+      const merged = {};
+      index.forEach(e2 => merged[e2.id] = e2);
+      backup.index.forEach(e2 => merged[e2.id] = e2);
+      index = Object.values(merged);
+      backup.entries.forEach(en => { entryCache[en.id] = en; });
+      let importOk = true;
+      for(const en of backup.entries){
+        if(!(await saveEntry(en))) importOk = false;
+      }
+      if(!(await saveIndex())) importOk = false;
+      renderTabs(); renderList();
+      toast(importOk ? `Import réussi : ${backup.entries.length} fiche(s)` : "⚠ Import affiché mais sauvegarde locale incomplète");
+    }catch(err){
+      toast("Erreur d'import : fichier invalide");
+    }
+    document.getElementById('importFile').value = '';
+  };
+  reader.readAsText(file);
+});
+
+
+// --- Installation PWA / GitHub Pages ---
+let deferredInstallPrompt = null;
+const installBtn = document.getElementById('installBtn');
+
+window.addEventListener('beforeinstallprompt', (event) => {
+  event.preventDefault();
+  deferredInstallPrompt = event;
+  if (installBtn) installBtn.style.display = 'block';
+});
+
+if (installBtn) {
+  installBtn.addEventListener('click', async () => {
+    if (!deferredInstallPrompt) {
+      toast('Dans Chrome : ⋮ puis « Installer l’application » ou « Ajouter à l’écran d’accueil »');
+      return;
+    }
+    deferredInstallPrompt.prompt();
+    await deferredInstallPrompt.userChoice;
+    deferredInstallPrompt = null;
+    installBtn.style.display = 'none';
+  });
+}
+
+window.addEventListener('appinstalled', () => {
+  deferredInstallPrompt = null;
+  if (installBtn) installBtn.style.display = 'none';
+  toast('✓ Recreaju est installée');
+});
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js').catch(err => {
+      console.warn('Service worker non enregistré :', err);
+    });
+  });
+}
+
+loadIndex();
+</script>
+</body>
+</html>
