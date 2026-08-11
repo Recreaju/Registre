@@ -470,18 +470,18 @@ textarea{resize:vertical; min-height:60px;}
     <input type="text" id="f_filament3" placeholder="Filament 3 (optionnel)" style="margin-top:6px;">
     <input type="text" id="f_filament4" placeholder="Filament 4 (optionnel)" style="margin-top:6px;">
 
-    <label>Temps d'impression</label>
-    <input type="text" id="f_temps" placeholder="ex: 3h10">
+    <label>Temps d'impression (heures)</label>
+    <input type="number" min="0" step="0.01" id="f_temps" placeholder="ex: 3,17">
 
     <div class="price-panel">
       <h3>💰 Calculateur de prix</h3>
       <div class="price-grid">
         <div><label style="margin-top:0">Poids filament (g)</label><input type="number" min="0" step="0.1" id="f_poids" placeholder="ex: 52"></div>
-        <div><label style="margin-top:0">Temps de travail (min)</label><input type="number" min="0" step="1" id="f_travail" placeholder="ex: 15"></div>
+        <div><label style="margin-top:0">Temps de travail (heures)</label><input type="number" min="0" step="0.01" id="f_travail" placeholder="ex: 0,25"></div>
         <div><label>Emballage (€)</label><input type="number" min="0" step="0.01" id="f_emballage" placeholder="paramètre par défaut"></div>
         <div><label>Autres coûts (€)</label><input type="number" min="0" step="0.01" id="f_autres" placeholder="0,00"></div>
       </div>
-      <div class="calc-result" id="pricePreview">Renseigne le poids, le temps d'impression et le temps de travail.</div>
+      <div class="calc-result" id="pricePreview">Renseigne le poids, le temps d'impression en heures et le temps de travail en heures.</div>
       <p class="settings-note">Les prix du filament, de l'électricité, l'amortissement, le taux horaire, les commissions et la marge se règlent avec le bouton ⚙️ Prix.</p>
     </div>
     <input type="hidden" id="f_cout">
@@ -667,8 +667,14 @@ function parsePrintHours(txt){
   if(!mh && !mm){ const colon=txt.match(/^(\d+):(\d+)$/); if(colon){h=+colon[1];m=+colon[2];} else if(/^\d+(?:\.\d+)?$/.test(txt)) h=parseFloat(txt); }
   return h+m/60;
 }
+function normalizeWorkHours(value, pricing){
+  const v=n(value);
+  // Anciennes fiches : le temps de travail était stocké en minutes.
+  // Les nouvelles fiches enregistrent pricing.timeUnit = "hours".
+  return (pricing && pricing.timeUnit === 'hours' ? v : v/60).toFixed(2);
+}
 function computePrices(data, cfg=priceSettings){
-  const poids=n(data.poids), printH=parsePrintHours(data.temps), workH=n(data.travail)/60;
+  const poids=n(data.poids), printH=parsePrintHours(data.temps), workH=n(data.travail);
   const filament=(poids/1000)*n(cfg.filamentKg);
   const electricite=printH*(n(cfg.imprimanteWatts)/1000)*n(cfg.electriciteKwh);
   const amortissement=printH*n(cfg.amortissementH);
@@ -811,7 +817,7 @@ function renderList(){
         <div class="card-nom">${escapeHtml(e.nom)}</div>
         <div class="card-meta">
           <b>${escapeHtml(e.createur||'—')}</b> · ${escapeHtml((e.filaments||[]).join(' + ')||'—')}<br>
-          ${escapeHtml(e.temps||'—')} · coût ${e.coutReel!=null ? euro(e.coutReel) : (e.cout!=null && e.cout!=='' ? euro(e.cout) : '—')}${e.prixConseille!=null ? ` · <b>${euro(e.prixConseille)}</b>` : ''}
+          ${e.temps ? n(parsePrintHours(e.temps)).toFixed(2).replace('.',',')+' h' : '—'} · coût ${e.coutReel!=null ? euro(e.coutReel) : (e.cout!=null && e.cout!=='' ? euro(e.cout) : '—')}${e.prixConseille!=null ? ` · <b>${euro(e.prixConseille)}</b>` : ''}
         </div>
       </div>
     </div>
@@ -854,9 +860,9 @@ function openForm(id){
       document.getElementById('f_filament2').value = fils[1] || '';
       document.getElementById('f_filament3').value = fils[2] || '';
       document.getElementById('f_filament4').value = fils[3] || '';
-      document.getElementById('f_temps').value = entry.temps || '';
+      document.getElementById('f_temps').value = entry.temps ? parsePrintHours(entry.temps).toFixed(2) : '';
       document.getElementById('f_poids').value = entry.pricing?.poids ?? entry.poids ?? '';
-      document.getElementById('f_travail').value = entry.pricing?.travail ?? '';
+      document.getElementById('f_travail').value = entry.pricing?.travail != null ? normalizeWorkHours(entry.pricing.travail, entry.pricing) : '';
       document.getElementById('f_emballage').value = entry.pricing?.emballage ?? '';
       document.getElementById('f_autres').value = entry.pricing?.autres ?? '';
       document.getElementById('f_cout').value = entry.pricing?.result?.cout ?? entry.cout ?? '';
@@ -999,12 +1005,12 @@ document.getElementById('saveForm').addEventListener('click', async ()=>{
     id, category, ref, nom,
     createur: document.getElementById('f_createur').value.trim(),
     filaments: filaments,
-    temps: document.getElementById('f_temps').value.trim(),
+    temps: document.getElementById('f_temps').value,
     cout: document.getElementById('f_cout').value,
     poids: n(document.getElementById('f_poids').value),
     pricing: (()=>{
       const data=currentCalcData(), result=computePrices(data);
-      return {poids:n(data.poids),travail:n(data.travail),emballage:data.emballage===''?'':n(data.emballage),autres:n(data.autres),settings:{...priceSettings},result};
+      return {poids:n(data.poids),travail:n(data.travail),timeUnit:'hours',emballage:data.emballage===''?'':n(data.emballage),autres:n(data.autres),settings:{...priceSettings},result};
     })(),
     notes: document.getElementById('f_notes').value.trim(),
     photo: pendingPhoto || null,
@@ -1076,11 +1082,11 @@ async function openDetail(id){
       <div class="detail-item"><div class="k">Catégorie</div><div class="v">${escapeHtml(entry.category)}</div></div>
       <div class="detail-item"><div class="k">Créateur</div><div class="v">${escapeHtml(entry.createur||'—')}</div></div>
       <div class="detail-item"><div class="k">Filament(s)</div><div class="v">${escapeHtml((entry.filaments||[]).join(', ')||'—')}</div></div>
-      <div class="detail-item"><div class="k">Temps</div><div class="v">${escapeHtml(entry.temps||'—')}</div></div>
+      <div class="detail-item"><div class="k">Temps d'impression</div><div class="v">${entry.temps ? n(parsePrintHours(entry.temps)).toFixed(2).replace('.',',')+' h' : '—'}</div></div>
       <div class="detail-item"><div class="k">Coût réel</div><div class="v">${entry.pricing?.result ? euro(entry.pricing.result.cout) : (entry.cout!=null && entry.cout!=='' ? euro(entry.cout) : '—')}</div></div>
       <div class="detail-item"><div class="k">Vendu</div><div class="v">${entry.vendu ? '✓ Oui — '+ (entry.quantite||0) + ' unité(s)' : 'Non'}</div></div>
     </div>
-    ${entry.pricing?.result ? `<div class="price-panel"><h3>💰 Prix de vente</h3><div class="price-cards"><div class="price-card"><div class="k">💰 Minimum</div><div class="v">${euro(entry.pricing.result.minimum)}</div></div><div class="price-card"><div class="k">🏷️ Conseillé</div><div class="v">${euro(entry.pricing.result.direct)}</div></div><div class="price-card"><div class="k">🏪 Boutique</div><div class="v">${euro(entry.pricing.result.boutique)}</div></div><div class="price-card"><div class="k">🌐 En ligne</div><div class="v">${euro(entry.pricing.result.online)}</div></div></div><div class="calc-row"><span>Marge directe</span><strong>${euro(entry.pricing.result.marge)} · ${n(entry.pricing.result.tauxMarge).toFixed(0)} %</strong></div><div class="calc-row"><span>Poids / travail</span><strong>${entry.pricing.poids||0} g · ${entry.pricing.travail||0} min</strong></div></div>` : ''}
+    ${entry.pricing?.result ? `<div class="price-panel"><h3>💰 Prix de vente</h3><div class="price-cards"><div class="price-card"><div class="k">💰 Minimum</div><div class="v">${euro(entry.pricing.result.minimum)}</div></div><div class="price-card"><div class="k">🏷️ Conseillé</div><div class="v">${euro(entry.pricing.result.direct)}</div></div><div class="price-card"><div class="k">🏪 Boutique</div><div class="v">${euro(entry.pricing.result.boutique)}</div></div><div class="price-card"><div class="k">🌐 En ligne</div><div class="v">${euro(entry.pricing.result.online)}</div></div></div><div class="calc-row"><span>Marge directe</span><strong>${euro(entry.pricing.result.marge)} · ${n(entry.pricing.result.tauxMarge).toFixed(0)} %</strong></div><div class="calc-row"><span>Poids / travail</span><strong>${entry.pricing.poids||0} g · ${normalizeWorkHours(entry.pricing.travail, entry.pricing).replace('.',',')} h</strong></div></div>` : ''}
     ${entry.notes ? `<div class="detail-item" style="margin-bottom:16px;"><div class="k">Notes</div><div class="v" style="font-weight:400;">${escapeHtml(entry.notes)}</div></div>` : ''}
     ${entry.compliance ? `<div class="compliance-card ${entry.compliance.tone||'warn'}"><div class="k">Diagnostic conformité</div><div class="v" style="font-weight:700;margin-top:4px;">${escapeHtml(entry.compliance.regime||'Évaluation enregistrée')}</div><div style="font-size:12px;color:var(--muted);margin-top:4px;">${entry.compliance.checkedAt ? 'Évalué le '+new Date(entry.compliance.checkedAt).toLocaleDateString('fr-FR') : ''}</div></div>` : ''}
     <button class="compliance-btn" id="complianceBtn">🛡️ ${entry.compliance ? 'Revoir le questionnaire conformité' : 'Évaluer la conformité de ce produit'}</button>
